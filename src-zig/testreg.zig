@@ -1,13 +1,4 @@
-# ZIG_REGEX
-PCRE2-POSIX  
-  
-  
-zig 0.11.0 dev
-
-Using "regex" from the new PCRE2-Posix standard
-
-example:
-`const std = @import("std");
+const std = @import("std");
 const re = @cImport({
   @cDefine("PCRE2_CODE_UNIT_WIDTH", "8");
   @cInclude("regPcre2.h");
@@ -145,4 +136,3 @@ const stdin = std.io.getStdIn().reader();
 var buf:[4]u8 = [_]u8{0} ** 4;
   _= try stdin.readUntilDelimiterOrEof(buf[0..], '\n');
 }
-`
