@@ -2,7 +2,7 @@
 PCRE2-POSIX  
   
   
-zig 0.11.0 dev
+
 
 Using "regex" from the new PCRE2-Posix standard
 
