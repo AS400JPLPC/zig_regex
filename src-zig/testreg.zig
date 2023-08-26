@@ -11,6 +11,7 @@ const stdin = std.io.getStdIn().reader();
 var buf : [3]u8 = undefined;
 buf = [_]u8{0} ** 3;
 
+  std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("p1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$/g")}) ;
 
   std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
 

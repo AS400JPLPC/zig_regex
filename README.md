@@ -4,9 +4,14 @@ PCRE2-POSIX
   
 
 
-Using "regex" from the new PCRE2-Posix standard
+Using "regex" from the new PCRE2-Posix standard<br>
 
-example:
+example:<br>
+
+Pay attention to the flag that is incumbent on you.<br>
+/i ignore case<br>
+/g global <br>
+/m multiline <br>
 
 
 ```
@@ -22,6 +27,8 @@ pub fn main() !void {
 const stdin = std.io.getStdIn().reader();
 var buf : [3]u8 = undefined;
 buf = [_]u8{0} ** 3;
+
+  std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$/g")}) ;
 
 
   std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
