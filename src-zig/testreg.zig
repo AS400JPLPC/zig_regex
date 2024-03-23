@@ -56,7 +56,7 @@ buf = [_]u8{0} ** 3;
 
 
 
-  var width :usize = 5;
+  const width :usize = 5;
   // unsigned digit
   std.debug.print("Macth digit unsigned{} \r\n",.{reg.isMatch(
   "123",
@@ -73,7 +73,7 @@ buf = [_]u8{0} ** 3;
   "12345",
   std.fmt.allocPrint(allocatorPrint,"^[0-9]{s}1,{d}{s}$",.{"{",width,"}"},) catch unreachable)});
 
-  var scal :usize = 2;
+  const scal :usize = 2;
   // decimal unsigned  scal > 0
   std.debug.print("Macth decimal unsigned  scal > 0 {} \r\n",.{reg.isMatch(
   "12345.02",
