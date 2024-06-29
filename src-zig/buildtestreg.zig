@@ -17,14 +17,19 @@ pub fn build(b: *std.Build) void {
     // Definition of dependencies
 
     const match = b.createModule(.{
-      .root_source_file= .{ .path = "./deps/curse/match.zig"},
+      .root_source_file= b.path("./deps/curse/match.zig"),
     });
-	match.addIncludePath(.{.path = "./lib/"});
+	match.addIncludePath( b.path("./lib/"));
+
+
+    const fluent = b.createModule(.{
+      .root_source_file= b.path("./deps/curse/fluent.zig"),
+    });
 	
     // Building the executable
     const Prog = b.addExecutable(.{
     .name = "testreg",
-    .root_source_file = .{ .path = "./testreg.zig" },
+    .root_source_file = b.path("./testreg.zig" ),
     .target = target,
     .optimize = optimize,
     });
@@ -33,6 +38,7 @@ pub fn build(b: *std.Build) void {
     Prog.linkLibC();
     Prog.addObjectFile(.{.cwd_relative = "/usr/lib/libpcre2-posix.so"});
     Prog.root_module.addImport("match"   , match);
+    Prog.root_module.addImport("fluent"   , fluent);
 
     b.installArtifact(Prog);
 
