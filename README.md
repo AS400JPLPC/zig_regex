@@ -1,7 +1,7 @@
 # ZIG_REGEX
 PCRE2-POSIX  
   
-  
+AND TEST FLUENT  
 
 
 Using "regex" from the new PCRE2-Posix standard<br>
@@ -132,5 +132,9 @@ buf = [_]u8{0} ** 3;
 *   •upgrade 2024-03-23.<BR /> 
 
 *   •upgrade 2024-06-29.<BR /> 
-&nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.13.0<BR /
+&nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.13.0<BR />
+
+
+*   •upgrade 2024-07-01.<BR /> 
+&nbsp;&nbsp;&nbsp;&larr;&nbsp;Test Fluent and PCRE "C"   Zregex<BR /> 
 
