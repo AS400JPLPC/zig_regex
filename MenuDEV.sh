@@ -17,8 +17,8 @@ f_cls() {
 
 reset > /dev/null
 	echo -en '\033[1;1H'
-	echo -en '\033]11;#000000\007'
-	echo -en '\033]10;#FFFFFF\007'	 
+	#echo -en '\033]11;#000000\007'
+	#echo -en '\033]10;#FFFFFF\007'	 
 }
 
 f_pause(){
@@ -57,6 +57,7 @@ envCPP="1"
 envZIG="2"
 PROJECT="Regex"
 LIBPROJECT="/home/soleil/Zregex/"
+LIBRARY="/home/soleil/Zregex/library/"
 choix=""
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -65,13 +66,14 @@ do
 	cd 
 	f_cls
 	f_dsplyPos  1  24 $faGras$fcJaune 'Project: '$faGras$fcCyan$PROJECT
-
+	f_dsplyPos  5  20 $faGras$fcRouge' 2.'; f_dsplyPos  5  24 $faGras$fcGreen 'APPTERM'
 	f_dsplyPos  6  24 $faGras$fcJaune '------------compile Zig-----------------'
-	f_dsplyPos  7  20 $faGras$fcRouge' 9.'; f_dsplyPos  7  24 $faGras$fcGreen 'testreg'
-
-
-
-
+	f_dsplyPos  7  20 $faGras$fcRouge' 9.'; f_dsplyPos  7  24 $faGras$fcGreen 'cfluent'
+	f_dsplyPos  8  20 $faGras$fcRouge'10.'; f_dsplyPos  8  24 $faGras$fcGreen 'testfluent'
+	f_dsplyPos  9  20 $faGras$fcRouge'11.'; f_dsplyPos  9  24 $faGras$fcGreen 'testreg'
+    f_dsplyPos 10  20 $faGras$fcRouge'12.'; f_dsplyPos 10  24 $faGras$fcGreen 'exCallpgm'
+    f_dsplyPos 11  20 $faGras$fcRouge'13.'; f_dsplyPos 11  24 $faGras$fcGreen 'Exemple'
+    f_dsplyPos 12  20 $faGras$fcRouge'14.'; f_dsplyPos 12  24 $faGras$fcGreen 'Zregex'
 	f_dsplyPos 13  24 $faGras$fcJaune '----------------------------------------'
 
 	f_dsplyPos 14  20 $faGras$fcRouge'33.'; f_dsplyPos 14  24 $faGras$fcGreen 'Debug codelldb'
@@ -79,6 +81,7 @@ do
 	f_dsplyPos 16  20 $faGras$fcRouge'44.'; f_dsplyPos 16  24 $faGras$fcCyan  'enScript Printer'
 
 
+	f_dsplyPos 18  20 $faGras$fcRouge'50.'; f_dsplyPos 18 24 $faGras$fcCyan  'Edit my Library'
 
 	f_dsplyPos 20  20 $faGras$fcRouge'55.'; f_dsplyPos 20  24 $faGras$fcCyan  'Edit my project'
 
@@ -101,16 +104,40 @@ do
  		case "$choix" in
 
 
-
+# APPTERM
+		2)
+			/home/soleil/.Terminal/dispatch.sh $envCPP $LIBPROJECT   "APPTERM"
+		;;
 
 
 		9)
+			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "cfluent"
+		;;
+
+
+		10)
+			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testfluent"
+		;;
+
+
+		11)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testreg"
 		;;
 
 
+		12)
+			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "exCallpgm"
+		;;
 
 
+		13)
+			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Exemple"
+		;;
+
+
+		14)
+			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Zregex"
+		;;
 #debug
 		33)
 			/home/soleil/.Terminal/debugZig.sh $PROJECT
@@ -121,6 +148,12 @@ do
 			/home/soleil/.Terminal/enScript.sh  $LIBPROJECT
 		;;
 
+#library
+		50)
+			/home/soleil/.Terminal/myProject.sh  $PROJECT $LIBRARY
+			#sleep 2
+			#break
+		;;
 
 #project
 		55)
