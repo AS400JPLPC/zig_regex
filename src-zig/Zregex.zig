@@ -77,7 +77,6 @@ std.debug.print("Macth {s}: {} \r\n",.{"Pabcex",creg.isMatch("Pabcex",expA)}) ;
     std.debug.print("fluent:{s} ismatch:{} \r\n",.{"12345.02",isMatch("12345.02",expEuro)});
 std.debug.print("Macth {s}: {} \r\n",.{"12345.02",creg.isMatch("12345.02",expEuro)}) ;
 
-
     std.debug.print("fluent:{s} ismatch:{} \r\n",.{"5.02",isMatch("5.02",expEuro)});
  std.debug.print("Macth {s}: {} \r\n",.{"5.02",creg.isMatch("5.02",expEuro)}) ;
   
@@ -85,6 +84,11 @@ std.debug.print("Macth {s}: {} \r\n",.{"12345.02",creg.isMatch("12345.02",expEur
  std.debug.print("Macth {s}: {} \r\n",.{"5.0",creg.isMatch("5.0",expEuro)}) ;
     
     // error 
+
+
+    std.debug.print("fluent:{s} ismatch:{} \r\n",.{"12345..02",isMatch("12345..02",expEuro)});
+std.debug.print("Macth {s}: {} \r\n",.{"12345..02",creg.isMatch("12345..02",expEuro)}) ;
+    
     std.debug.print("fluent:{s} ismatch:{} \r\n",.{"123456.02",isMatch("123456.02",expEuro)});
  std.debug.print("Macth {s}: {} \r\n",.{"123456.02",creg.isMatch("123456.02",expEuro)}) ;
  
