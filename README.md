@@ -1,10 +1,12 @@
 # ZIG_REGEX
 PCRE2-POSIX  
   
-AND TEST FLUENT  
+  
 
 
 Using "regex" from the new PCRE2-Posix standard<br>
+
+https://github.com/mnemnion/mvzr  new regex form ZIG
 
 example:<br>
 
@@ -137,4 +139,8 @@ buf = [_]u8{0} ** 3;
 
 *   •upgrade 2024-07-01.<BR /> 
 &nbsp;&nbsp;&nbsp;&larr;&nbsp;Test Fluent and PCRE "C"   Zregex<BR /> 
+
+
+*   •upgrade 2024-07-22.<BR /> 
+&nbsp;&nbsp;&nbsp;&larr;&nbsp;Test MVZR and PCRE "C"   Zregex<BR /> 
 

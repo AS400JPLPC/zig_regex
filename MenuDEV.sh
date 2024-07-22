@@ -74,9 +74,11 @@ do
     f_dsplyPos 10  20 $faGras$fcRouge'12.'; f_dsplyPos 10  24 $faGras$fcGreen 'exCallpgm'
     f_dsplyPos 11  20 $faGras$fcRouge'13.'; f_dsplyPos 11  24 $faGras$fcGreen 'Exemple'
     f_dsplyPos 12  20 $faGras$fcRouge'14.'; f_dsplyPos 12  24 $faGras$fcGreen 'Zregex'
-	f_dsplyPos 13  24 $faGras$fcJaune '----------------------------------------'
+    f_dsplyPos 13  20 $faGras$fcRouge'15.'; f_dsplyPos 13  24 $faGras$fcGreen 'testmvzr'
 
-	f_dsplyPos 14  20 $faGras$fcRouge'33.'; f_dsplyPos 14  24 $faGras$fcGreen 'Debug codelldb'
+	f_dsplyPos 14  24 $faGras$fcJaune '----------------------------------------'
+
+	f_dsplyPos 15  20 $faGras$fcRouge'33.'; f_dsplyPos 15  24 $faGras$fcGreen 'Debug codelldb'
 
 	f_dsplyPos 16  20 $faGras$fcRouge'44.'; f_dsplyPos 16  24 $faGras$fcCyan  'enScript Printer'
 
@@ -138,6 +140,12 @@ do
 		14)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Zregex"
 		;;
+
+
+		15)
+			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testmvzr"
+		;;
+
 #debug
 		33)
 			/home/soleil/.Terminal/debugZig.sh $PROJECT
