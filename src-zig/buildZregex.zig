@@ -22,6 +22,9 @@ pub fn build(b: *std.Build) void {
 	match.addIncludePath( b.path("./lib/"));
 
 
+    const fluent = b.createModule(.{
+      .root_source_file= b.path("./deps/curse/fluent.zig"),
+    });
      // Building the executable
     const Prog = b.addExecutable(.{
     .name = "Zregex",
@@ -39,8 +42,10 @@ pub fn build(b: *std.Build) void {
 
     
     Prog.root_module.addImport("match"   , match);
-    Prog.root_module.addImport("fluent", library_dep.module("fluent"));
+    Prog.root_module.addImport("mvzr", library_dep.module("mvzr"));
+    Prog.root_module.addImport("fluent"   , fluent);
     b.installArtifact(Prog);
+
 
 
 

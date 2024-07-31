@@ -8,9 +8,13 @@ const allocatorPrint = std.heap.page_allocator;
 pub fn main() !void {
 
 const stdin = std.io.getStdIn().reader();
-var buf : [3]u8 = undefined;
-buf = [_]u8{0} ** 3;
+var buf : [5]u8 = undefined;
 
+std.debug.print("test emprient memoire",.{});
+  _= try stdin.readUntilDelimiter(buf[0..], '\n');
+
+  
+  
   std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("p1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$/g")}) ;
 
   std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
@@ -78,9 +82,9 @@ buf = [_]u8{0} ** 3;
   std.debug.print("Macth decimal unsigned  scal > 0 {} \r\n",.{reg.isMatch(
   "12345.02",
   std.fmt.allocPrint(allocatorPrint,
-  "^[0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$",.{"{",width,"}","{",scal,"}"}
+   "^[0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$",.{"{",width,"}","{",scal,"}"}
   ) catch unreachable)});
-
+  std.debug.print("^[0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$ \r\n",.{"{",width,"}","{",scal,"}"} ) ;
   _= try stdin.readUntilDelimiterOrEof(buf[0..], '\n');
   
   // decimal signed   scal = 0
@@ -95,7 +99,7 @@ buf = [_]u8{0} ** 3;
   std.fmt.allocPrint(allocatorPrint,
   "^[+-][0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$",.{"{",width,"}","{",scal,"}"}
   ) catch unreachable)});
-
+  std.debug.print("^[0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$ \r\n",.{"{",width,"}","{",scal,"}"} ) ;
   var i: usize = 0 ;
   while(i < 5000) : ( i += 1 ) {
   _=reg.isMatch(
@@ -104,6 +108,9 @@ buf = [_]u8{0} ** 3;
   }
 
 
-buf = [_]u8{0} ** 3;
+
+  std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("😀P1😀","^😀+[A-Z0-9]{1,2}+😀$")}) ;
+
+buf = [_]u8{0} ** 5;
   _= try stdin.readUntilDelimiterOrEof(buf[0..], '\n');
 }

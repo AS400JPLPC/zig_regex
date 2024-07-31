@@ -38,7 +38,7 @@ pub fn build(b: *std.Build) void {
     Prog.linkLibC();
     Prog.addObjectFile(.{.cwd_relative = "/usr/lib/libpcre2-posix.so"});
     Prog.root_module.addImport("match"   , match);
-    Prog.root_module.addImport("fluent"   , fluent);
+    Prog.root_module.addImport("fluent"  , fluent);
 
     b.installArtifact(Prog);
 

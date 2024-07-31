@@ -8,13 +8,10 @@ const std = @import("std");
 
 pub fn build(b: *std.Build) void {
 
-	const fluent_mod = b.addModule("fluent", .{
-		.root_source_file =  b.path( "./fluent/fluent.zig" ),
-	});
-
 	const logger_mod = b.addModule("logger", .{
 		.root_source_file =  b.path( "./curse/logger.zig" ),
 	});
+
 
 	const cursed_mod = b.addModule("cursed", .{
 		.root_source_file = b.path( "./curse/cursed.zig" ),
@@ -24,8 +21,8 @@ pub fn build(b: *std.Build) void {
 		.root_source_file = b.path( "./curse/utils.zig" ),
 	});
 
-	const match_mod = b.addModule("match", .{
-		.root_source_file = b.path( "./curse/match.zig" ),
+	const mvzr_mod = b.addModule("mvzr", .{
+		.root_source_file = b.path( "./regex/mvzr.zig" ),
 	});
 
  	const forms_mod = b.addModule("forms", .{
@@ -33,7 +30,7 @@ pub fn build(b: *std.Build) void {
 		.imports= &.{
 		.{ .name = "cursed", .module = cursed_mod },
 		.{ .name = "utils",  .module = utils_mod},
-		.{ .name = "match",  .module = match_mod },
+		.{ .name = "mvzr",   .module = mvzr_mod },
 		},
 	});
 
@@ -86,10 +83,6 @@ pub fn build(b: *std.Build) void {
 
 
 
-	match_mod.addIncludePath( b.path( "./lib/"));
-	match_mod.link_libc = true;
-	match_mod.addObjectFile(.{.cwd_relative = "/usr/lib/libpcre2-posix.so"});
-
 	decimal_mod.addIncludePath( b.path( "./lib/"));
 	decimal_mod.link_libc = true;
 	decimal_mod.addObjectFile(.{.cwd_relative = "/usr/lib/libmpdec.so"});
@@ -101,7 +94,7 @@ pub fn build(b: *std.Build) void {
 		.imports = &.{
 		.{ .name = "cursed",	.module = cursed_mod },
 		.{ .name = "utils",		.module = utils_mod },
-		.{ .name = "match",		.module = match_mod },
+		.{ .name = "mvzr",		.module = mvzr_mod },
 		.{ .name = "forms",		.module = forms_mod },
 		.{ .name = "grid",		.module = grid_mod },
 		.{ .name = "menu",		.module = menu_mod },
@@ -112,9 +105,7 @@ pub fn build(b: *std.Build) void {
 		.{ .name = "crypto",	.module = crypto_mod },
 		
 		.{ .name = "logger",	.module = logger_mod },
-		
-		.{ .name = "fluent",	.module = fluent_mod },
-
+			
 		},
 	});
 

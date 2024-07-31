@@ -5,7 +5,7 @@
 
 pub const cursed	= @import("cursed");
 pub const utils		= @import("utils");
-pub const match		= @import("match");
+pub const mvzr		= @import("mvzr");
 pub const forms		= @import("forms");
 pub const grid		= @import("grid");
 pub const menu		= @import("menu");
@@ -23,5 +23,3 @@ pub const dcml		= @import("decimal");
 
 
 pub const logger	= @import("logger");
-
-pub const fluent	= @import("fluent");
