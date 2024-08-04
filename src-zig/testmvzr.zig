@@ -14,8 +14,15 @@ pub fn isMatch(testval : [] const u8, pattern : [] const u8 ) bool {
     
      const maybe_regex = freg.compile(pattern) ;
      std.debug.print("\r\nlog {s}  {s}\r\n",.{testval,pattern});
-     if (maybe_regex) |regex| return regex.isMatch(testval) 
-     else  return false ;   
+     if (maybe_regex) |regex|{
+         const match1 = regex.match(testval);
+        if (match1) |m1| {
+            if (testval.len ==  m1.end) return true;
+        } else {
+            return false;
+        }   
+     }  
+     return false ;   
        
  }
 
@@ -88,8 +95,8 @@ std.debug.print("test emprient memoire",.{});
     std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
     std.debug.print("MVZR  A-Z {} \r\n",.{isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
 
-    std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
-    std.debug.print("MVZR abc {} \r\n",.{isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
+    std.debug.print("Macth abc {} \r\n",.{reg.isMatch("pppp-1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
+    std.debug.print("MVZR abc {} \r\n",.{isMatch("ppppé1","^[a-zA-Z]{1,1)([a-zA-Z0-9]{0,})$")}) ;
 
     
     std.debug.print("MVZR abc {} \r\n",.{isMatch("p3","^[a-zA-Z]{1}[a-zA-Z0-9]{0,}$")}) ;
@@ -157,108 +164,108 @@ std.debug.print("test emprient memoire",.{});
 
   // standard mail
   std.debug.print("MVZR Mail{} \r\n",.{isMatch(
-  "myname.my#fi?rst_name@gmail.com.",
-  "[a-zA-Z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]")});
+  "myname.my~f{i}r/st_n'*a`me@gmail.com-ase",
+  "^[a-zA-Z0-9_!#$%&=.-^~|?*+'`{}/]+@([a-zA-Z0-9.-])+$")});
 
   
-  const width :usize = 5;
-  // unsigned digit
-  std.debug.print("Macth digit unsigned{} \r\n",.{reg.isMatch(
-  "123",
-  std.fmt.allocPrint(allocatorPrint,"^[0-9]{s}{d}{s}$",.{"{1,",width,"}"},) catch unreachable)});
+//   const width :usize = 5;
+//   // unsigned digit
+//   std.debug.print("Macth digit unsigned{} \r\n",.{reg.isMatch(
+//   "123",
+//   std.fmt.allocPrint(allocatorPrint,"^[0-9]{s}{d}{s}$",.{"{1,",width,"}"},) catch unreachable)});
 
-  std.debug.print("MVZR digit unsigned{} \r\n",.{isMatch(
-  "123",
-  std.fmt.allocPrint(allocatorPrint,"[0-9]{{1,{d}}}",.{width}) catch unreachable)});
+//   std.debug.print("MVZR digit unsigned{} \r\n",.{isMatch(
+//   "123",
+//   std.fmt.allocPrint(allocatorPrint,"[0-9]{{1,{d}}}",.{width}) catch unreachable)});
 
 
-  // unsigned digit
-  std.debug.print("Macth digit {} \r\n",.{reg.isMatch(
-  "+12345",
-  std.fmt.allocPrint(allocatorPrint,"^[+-][0-9]{s}{d}{s}$",.{"{1,",width,"}"}) catch unreachable)});
+//   // unsigned digit
+//   std.debug.print("Macth digit {} \r\n",.{reg.isMatch(
+//   "+12345",
+//   std.fmt.allocPrint(allocatorPrint,"^[+-][0-9]{s}{d}{s}$",.{"{1,",width,"}"}) catch unreachable)});
 
-  std.debug.print("MVZR digit {} \r\n",.{isMatch(
-  "+12345",
-  std.fmt.allocPrint(allocatorPrint,"([+]|[-])[0-9]{{1,{d}}}",.{width}) catch unreachable)});
+//   std.debug.print("MVZR digit {} \r\n",.{isMatch(
+//   "+12345",
+//   std.fmt.allocPrint(allocatorPrint,"([+]|[-])[0-9]{{1,{d}}}",.{width}) catch unreachable)});
 
 
   
-  // decimal unsigned  scal = 0
-  std.debug.print("Macth decimal unsigned  scal = 0 {} \r\n",.{reg.isMatch(
-  "12345",
-  std.fmt.allocPrint(allocatorPrint,"^[0-9]{s}1,{d}{s}$",.{"{",width,"}"}) catch unreachable)});
+//   // decimal unsigned  scal = 0
+//   std.debug.print("Macth decimal unsigned  scal = 0 {} \r\n",.{reg.isMatch(
+//   "12345",
+//   std.fmt.allocPrint(allocatorPrint,"^[0-9]{s}1,{d}{s}$",.{"{",width,"}"}) catch unreachable)});
 
-  std.debug.print("MVZR decimal unsigned  scal = 0 {} \r\n",.{isMatch(
-  "12345",
-  std.fmt.allocPrint(allocatorPrint,"[0-9]{{1,{d}}}",.{width}) catch unreachable)});
+//   std.debug.print("MVZR decimal unsigned  scal = 0 {} \r\n",.{isMatch(
+//   "12345",
+//   std.fmt.allocPrint(allocatorPrint,"[0-9]{{1,{d}}}",.{width}) catch unreachable)});
 
 
-  const scal :usize = 2;
-  // decimal unsigned  scal > 0
-  std.debug.print("Macth decimal unsigned  scal > 0 {} \r\n",.{reg.isMatch(
-  "12345.02",
-  std.fmt.allocPrint(allocatorPrint,
-   "^[0-9]{{1,{d}}}[.][0-9]{{{d}}}$",.{width,scal}
-  ) catch unreachable)});
+//   const scal :usize = 2;
+//   // decimal unsigned  scal > 0
+//   std.debug.print("Macth decimal unsigned  scal > 0 {} \r\n",.{reg.isMatch(
+//   "12345.02",
+//   std.fmt.allocPrint(allocatorPrint,
+//    "^[0-9]{{1,{d}}}[.][0-9]{{{d}}}$",.{width,scal}
+//   ) catch unreachable)});
 
-  std.debug.print("MVZR decimal unsigned  scal > 0 {} \r\n",.{isMatch(
-  "12345.02",
-  std.fmt.allocPrint(allocatorPrint,
-   "[0-9]{{1,{d}}}[.][0-9]{{{d}}}",.{width,scal}
-  ) catch unreachable)});
+//   std.debug.print("MVZR decimal unsigned  scal > 0 {} \r\n",.{isMatch(
+//   "12345.02",
+//   std.fmt.allocPrint(allocatorPrint,
+//    "[0-9]{{1,{d}}}[.][0-9]{{{d}}}",.{width,scal}
+//   ) catch unreachable)});
 
  
-  // decimal signed   scal = 0
-  std.debug.print("Macth decimal signed  scal = 0 {} \r\n",.{reg.isMatch(
-  "+12345",
-  std.fmt.allocPrint(allocatorPrint,"^[+-][0-9]{s}1,{d}{s}$",.{"{",width,"}"},) catch unreachable)});
+//   // decimal signed   scal = 0
+//   std.debug.print("Macth decimal signed  scal = 0 {} \r\n",.{reg.isMatch(
+//   "+12345",
+//   std.fmt.allocPrint(allocatorPrint,"^[+-][0-9]{s}1,{d}{s}$",.{"{",width,"}"},) catch unreachable)});
 
-  std.debug.print("MVZR decimal signed  scal = 0 {} \r\n",.{isMatch(
-  "+12345",
-  std.fmt.allocPrint(allocatorPrint,"([+]|[-])[[0-9]{s}1,{d}{s}",.{"{",width,"}"},) catch unreachable)});
-
-
-  // decimal unsigned  scal > 0
-  std.debug.print("Macth decimal signed  scal > 0 {} \r\n",.{reg.isMatch(
-  "+12345.02",
-  std.fmt.allocPrint(allocatorPrint,
-  "^[+-][0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$",.{"{",width,"}","{",scal,"}"}
-  ) catch unreachable)});
-
-  std.debug.print("MVZR decimal signed  scal > 0 {} \r\n",.{isMatch(
-  "+12345.02",
-  std.fmt.allocPrint(allocatorPrint,
-  "([+]|[-])[0-9]{{1,{d}}}[.][0-9]{{{d}}}",.{width,scal}
-  ) catch unreachable)});
+//   std.debug.print("MVZR decimal signed  scal = 0 {} \r\n",.{isMatch(
+//   "+12345",
+//   std.fmt.allocPrint(allocatorPrint,"([+]|[-])[[0-9]{s}1,{d}{s}",.{"{",width,"}"},) catch unreachable)});
 
 
+//   // decimal unsigned  scal > 0
+//   std.debug.print("Macth decimal signed  scal > 0 {} \r\n",.{reg.isMatch(
+//   "+12345.02",
+//   std.fmt.allocPrint(allocatorPrint,
+//   "^[+-][0-9]{s}1,{d}{s}[.][0-9]{s}{d}{s}$",.{"{",width,"}","{",scal,"}"}
+//   ) catch unreachable)});
 
-  // control date
-    std.debug.print("-----------------------\r\n",.{});
-     // test date réel iso contrôl full
-    std.debug.print("Macth {s} date iso{} \r\n",.{"1951-02-20",reg.isMatch(
-    "1951-02-20",
-    "([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)")});
+//   std.debug.print("MVZR decimal signed  scal > 0 {} \r\n",.{isMatch(
+//   "+12345.02",
+//   std.fmt.allocPrint(allocatorPrint,
+//   "([+]|[-])[0-9]{{1,{d}}}[.][0-9]{{{d}}}",.{width,scal}
+//   ) catch unreachable)});
 
 
-    isMatchiFixedIso("1951-02-20");
+
+//   // control date
+//     std.debug.print("-----------------------\r\n",.{});
+//      // test date réel iso contrôl full
+//     std.debug.print("Macth {s} date iso{} \r\n",.{"1951-02-20",reg.isMatch(
+//     "1951-02-20",
+//     "([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)")});
+
+
+//     isMatchiFixedIso("1951-02-20");
        
-    // std.debug.print("MVZR {s} date iso{} \r\n",.{"1951-02-20",isMatch(
-    // "1951-02-20",
-    // "([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)")});
+//     // std.debug.print("MVZR {s} date iso{} \r\n",.{"1951-02-20",isMatch(
+//     // "1951-02-20",
+//     // "([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)")});
 
-    isMatchiFixedFr("28/02/0100");
-    isMatchiFixedFr("29/02/1951");
+//     isMatchiFixedFr("28/02/0100");
+//     isMatchiFixedFr("29/02/1951");
 
 
-    isMatchiFixedUs("02/28/4951");
-    isMatchiFixedUs("02/29/1951");
+//     isMatchiFixedUs("02/28/4951");
+//     isMatchiFixedUs("02/29/1951");
          
-  std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("😀P1😀","^😀[A-Z0-9]{1,2}😀$")}) ;
+//   std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("😀P1😀","^😀[A-Z0-9]{1,2}😀$")}) ;
 
-  std.debug.print("MVZR A-Z {} \r\n",.{isMatch("😀P😀","^😀[A-Z0-9]{1,2}😀$")}) ;
-buf = [_]u8{0} ** 3;
-  _= try stdin.readUntilDelimiterOrEof(buf[0..], '\n');
+//   std.debug.print("MVZR A-Z {} \r\n",.{isMatch("😀P😀","^😀[A-Z0-9]{1,2}😀$")}) ;
+// buf = [_]u8{0} ** 3;
+//   _= try stdin.readUntilDelimiterOrEof(buf[0..], '\n');
 
     
  }
