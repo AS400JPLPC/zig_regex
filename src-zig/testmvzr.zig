@@ -1,9 +1,10 @@
 const std = @import("std");
 
+// regex pure ZIG
 const freg = @import("mvzr");
 
 
-// tools regex
+// tools regex  lib pcre2
 const reg = @import("match");
 
 
@@ -69,18 +70,6 @@ pub fn isMatchiFixedUs(testval : [] const u8) void {
      else  std.debug.print("MVZR {s} date iso{} \r\n",.{valtest,false});
 }
 
-// pub fn main() !void {
-
-  
-//     // const regex = std.fmt.comptimePrint("^[A-Z]{s}1{s}[a-zA-Z0-9]{s}1,{d}{s}", .{"{", "}",  "{", 6, "}" });    
-
-//     // const patt_str = "[A-Za-z]$";   
-//     // std.debug.print("patern:{s} \r\n",.{patt_str});
-//     // const regex: freg.Regex = freg.compile(patt_str).?; 
-    
-//     // const first = regex.isMatch("Pabcex") ;
-//     std.debug.print("mvzr Macth >{any}< \r\n",.{isMatch("[A-Za-z]$","Pabcex")}) ;
-// }
 
 pub fn main() !void {
 
@@ -96,7 +85,7 @@ std.debug.print("test emprient memoire",.{});
     std.debug.print("MVZR  A-Z {} \r\n",.{isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
 
     std.debug.print("Macth abc {} \r\n",.{reg.isMatch("pppp-1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
-    std.debug.print("MVZR abc {} \r\n",.{isMatch("ppppé1","^[a-zA-Z]{1,1)([a-zA-Z0-9]{0,})$")}) ;
+    std.debug.print("MVZR abc {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1,1)([a-zA-Z0-9]{0,})$")}) ;
 
     
     std.debug.print("MVZR abc {} \r\n",.{isMatch("p3","^[a-zA-Z]{1}[a-zA-Z0-9]{0,}$")}) ;
@@ -109,7 +98,6 @@ std.debug.print("test emprient memoire",.{});
   std.debug.print("MVZR digit {} \r\n",.{isMatch(
   "423",
   "^[1-9]{1}[0-9]{2,2}$")}) ;
-
 
   std.debug.print("Macth tel fr{} \r\n",.{reg.isMatch(
   "+(33)6.12.34.56.78",
