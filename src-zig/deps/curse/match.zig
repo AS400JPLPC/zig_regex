@@ -11,7 +11,7 @@ const re = @cImport({
 });
 
 // Linux PCRE2
-// function macth regex.h	standard libc 
+// function macth regex.h standard libc 
 // display patern only test 
 // linux aligne i64 = usize 
 pub fn isMatch(strVal : [] const	u8, regVal : [] const	u8 ) bool {
