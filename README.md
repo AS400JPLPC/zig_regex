@@ -146,3 +146,6 @@ buf = [_]u8{0} ** 3;
 
 *   •upgrade 2024-08-12.<BR /> 
 &nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.13.0/ 0.14 <BR />
+
+*   •upgrade 2024-09-01.<BR /> 
+&nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.14 <BR />
