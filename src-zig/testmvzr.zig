@@ -92,22 +92,24 @@ std.debug.print("test emprient memoire",.{});
   _= try stdin.readUntilDelimiterOrEof(buf[0..], '\n');
 
 
-    std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
-    std.debug.print("MVZR  A-Z {} \r\n",.{isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
+    // std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
+    // std.debug.print("MVZR  A-Z {} \r\n",.{isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
 
-    std.debug.print("Macth pppp-1 {} \r\n",.{reg.isMatch("pppp-1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
-    std.debug.print("MVZR pppp-1 {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1}[a-zA-Z0-9]$")}) ;
+    // std.debug.print("Macth pppp-1 {} \r\n",.{reg.isMatch("pppp-1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
+    // std.debug.print("MVZR pppp-1 {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1}[a-zA-Z0-9]$")}) ;
 
-    std.debug.print("MVZR pppp-1 error  {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1,1}([a-zA-Z0-9]{0,}$)")}) ;
-    std.debug.print("MVZR pppp-1 error  {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1,1)([a-zA-Z0-9]{0,})$")}) ;
+    // std.debug.print("MVZR pppp-1 error  {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1,1}([a-zA-Z0-9]{0,}$)")}) ;
+    // std.debug.print("MVZR pppp-1 error  {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1,1)([a-zA-Z0-9]{0,})$")}) ;
     
     
-    std.debug.print("MVZR p3 {} \r\n",.{isMatch("p3","^[a-zA-Z]{1}[a-zA-Z0-9]{0,}$")}) ;
+    // std.debug.print("MVZR p3 {} \r\n",.{isMatch("p3","^[a-zA-Z]{1}[a-zA-Z0-9]{0,}$")}) ;
 
-    std.debug.print("MVZR pé error {} \r\n",.{isMatch("pé","^[a-zA-Z]{1}[a-zA-Z0-9é]{0,}$")}) ;
+    std.debug.print("MVZR pè1éàaÇ test  {} \r\n",.{
+        isMatch("pè1CéàaÇ","^[a-zA-Z]{1}(\\é|\\à|\\è|\\Ç|[a-zA-Z0-9]){1,7}$")}) ;
 
-    // test only caractère 1 alpha
-    std.debug.print("MVZR péazerty12345 test {} \r\n",.{isMatch("péazerty12345","[a-zA-Z]{1}")}) ;
+    
+    // test only caractère 1 alphas
+    std.debug.print("MVZR péazerty12345  test {} \r\n",.{isMatch("péazerty12345","^[a-zA-Z]{1}[a-zA-Z0-9]{0}$")}) ;
         
   std.debug.print("Macth digit {} \r\n",.{reg.isMatch(
   "423",
@@ -170,7 +172,7 @@ std.debug.print("test emprient memoire",.{});
 
  // standard mail
  std.debug.print("MVZR Mail{} \r\n",.{isMatch(
- "myn-ame.my~f{i}r/st_n'*a`me@gmail.com-ase",
+ "myn-am^e.my~f{i}r/st_n'*a`me@gmail.com-ase",
  "^[a-zA-Z0-9_!#$%&=.^~|?*+'`{}/-]+@([a-zA-Z0-9.-])+$")});
 
   

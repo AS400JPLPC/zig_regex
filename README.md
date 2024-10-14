@@ -35,6 +35,12 @@ buf = [_]u8{0} ** 3;
 
   std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
 
+
+
+  std.debug.print("MVZR pè1éàaÇ test  {} \r\n",.{
+        isMatch("pè1CéàaÇ","^[a-zA-Z]{1}(\\é|\\à|\\è|\\Ç|[a-zA-Z0-9]){1,7}$")}) ;
+
+
   std.debug.print("Macth digit {} \r\n",.{reg.isMatch(
   "423",
   "^[1-9]{1,1}?[0-9]{0,}$")}) ;
