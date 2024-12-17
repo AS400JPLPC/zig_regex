@@ -25,5 +25,3 @@ pub const dcml		= @import("decimal");
 pub const logger	= @import("logger");
 
 pub const logcons	= @import("logcons");
-
-pub const logsrc	= @import("logsrc");

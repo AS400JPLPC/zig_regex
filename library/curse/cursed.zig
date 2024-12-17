@@ -295,8 +295,9 @@ fn convIntCursor(x: u8) usize {
 
 pub fn getCursor() void {
 	// get Cursor form terminal
-	var cursBuf: [16]u8 = [_]u8{0} ** 16;	posCurs.x = 0;
+	var cursBuf: [13]u8 = undefined;
 
+	posCurs.x = 0;
 	posCurs.y = 0;
 
 	flushIO();
@@ -755,8 +756,7 @@ pub const kbd = enum {
 		var Event: Keyboard = Keyboard{ .Key = kbd.none, .Char = "" };
 
 		// TODO: Check buffer size
-		var keybuf: [16] u8 =  [_]u8{0} ** 16;
-
+		var keybuf: [13]u8 = undefined;
 		flushIO();
 
 		var c: usize = 0;
@@ -767,333 +767,167 @@ pub const kbd = enum {
 			};
 		}
 
+// std.debug.print("{any}\r\n",.{keybuf});
 
 		const view = std.unicode.Utf8View.init(keybuf[0..c]) catch {
 			Event.Key = kbd.none;
 			return Event;
 		};
-	
-	// std.debug.print("{any}\r\n",.{view});
-		
+
 		var iter = view.iterator();
 
 		// TODO: Find a better way to iterate buffer
 		if (iter.nextCodepoint()) |c0| switch (c0) {
 			'\x1b' => {
-				// MOUSE
-				if (c >= 10 ) return parse_csiFunc(keybuf[2..c]); 
-				// KEY 
-					var xcode : u64 = 0;
-					for (keybuf[0..c])  |xx| {
-						const ix: u64 =  @intCast(xx);
-						if (ix < 100) xcode = xcode * 100 else xcode = xcode * 1000;
-						xcode += ix; 
-					}
-		 			switch(xcode) {
-		 			27   => {
-								Event.Key = kbd.esc;
-								return Event;
-							},
-					
-					2797 =>  {
-								Event.Key = kbd.altA;
-								return Event;
-								},
-					2798 =>  {
-								Event.Key = kbd.altB;
-								return Event;
-								},
-					2799 =>  {
-								Event.Key = kbd.altC;
-								return Event;
-								},
-					27100 =>  {
-								Event.Key = kbd.altD;
-								return Event;
-								},
-					27101 =>  {
-								Event.Key = kbd.altE;
-								return Event;
-								},
-					27102 =>  {
-								Event.Key = kbd.altF;
-								return Event;
-								},
-					27103 =>  {
-								Event.Key = kbd.altG;
-								return Event;
-								},
-					27104 =>  {
-								Event.Key = kbd.altH;
-								return Event;
-								},
-					27105 =>  {
-								Event.Key = kbd.altI;
-								return Event;
-								},
-					27106 =>  {
-								Event.Key = kbd.altJ;
-								return Event;
-								},
-					27107 =>  {
-								Event.Key = kbd.altK;
-								return Event;
-								},
-					27108 =>  {
-								Event.Key = kbd.altL;
-								return Event;
-								},
-					27109 =>  {
-								Event.Key = kbd.altM;
-								return Event;
-								},
-					27110 =>  {
-								Event.Key = kbd.altN;
-								return Event;
-								},
-					27111 =>  {
-								Event.Key = kbd.altO;
-								return Event;
-								},
-					27112 =>  {
-								Event.Key = kbd.altP;
-								return Event;
-								},
-					27113 =>  {
-								Event.Key = kbd.altQ;
-								return Event;
-								},
-					27114 =>  {
-								Event.Key = kbd.altR;
-								return Event;
-								},
-					27115 =>  {
-								Event.Key = kbd.altS;
-								return Event;
-								},
-					27116 =>  {
-								Event.Key = kbd.altT;
-								return Event;
-								},
-					27117 =>  {
-								Event.Key = kbd.altU;
-								return Event;
-								},
-					27118 =>  {
-								Event.Key = kbd.altV;
-								return Event;
-								},
-					27119 =>  {
-								Event.Key = kbd.altW;
-								return Event;
-								},
-					27120 =>  {
-								Event.Key = kbd.altX;
-								return Event;
-								},
-					27121 =>  {
-								Event.Key = kbd.altY;
-								return Event;
-								},
-					27122 =>  {
-								Event.Key = kbd.altZ;
-								return Event;
-								},
-		
-					279165 =>  {
-								Event.Key = kbd.up;
-								return Event;
-								},
-					279166 =>  {
-								Event.Key = kbd.down;
-								return Event;
-								},
-					279167 =>  {
-								Event.Key = kbd.right;
-								return Event;
-								},
-					279168 =>  {
-								Event.Key = kbd.left;
-								return Event;
-								},
-					279170 =>  {
-								Event.Key = kbd.end;
-								return Event;
-								},
-					279172 =>  {
-								Event.Key = kbd.home;
-								return Event;
-								},
-					279190 =>  {
-								Event.Key = kbd.stab;
-								return Event;
-								},
-					279150126 =>  {
-								Event.Key = kbd.ins;
-								return Event;
-								},
-					279151126 =>  {
-								Event.Key = kbd.delete;
-								return Event;
-								},
-					279153126 =>  {
-								Event.Key = kbd.pageUp;
-								return Event;
-								},
-					279154126 =>  {
-								Event.Key = kbd.pageDown;
-								return Event;
-								},	
-					277980 =>  {
+				if (iter.nextCodepoint()) |c1| switch (c1) {
+					// fn (1 - 4)
+					// O - 0x6f - 111
+					'\x4f' => {
+						switch ((1 + keybuf[2] - '\x50')) {
+							1 => {
 								Event.Key = kbd.F1;
 								return Event;
-								},
-					277981 =>  {
+							},
+							2 => {
 								Event.Key = kbd.F2;
 								return Event;
-								},
-					277982 =>  {
+							},
+							3 => {
 								Event.Key = kbd.F3;
 								return Event;
-								},
-					277983 =>  {
+							},
+							4 => {
 								Event.Key = kbd.F4;
 								return Event;
-								},
-					27914953126 =>  {
-								Event.Key = kbd.F5;
-								return Event;
-								},
-					27914955126 =>  {
-								Event.Key = kbd.F6;
-								return Event;
-								},
-					27914956126 =>  {
-								Event.Key = kbd.F7;
-								return Event;
-								},
-					27914957126 =>  {
-								Event.Key = kbd.F8;
-								return Event;
-								},
-					27915048126 =>  {
-								Event.Key = kbd.F9;
-								return Event;
-								},
-					27915049126 =>  {
-								Event.Key = kbd.F10;
-								return Event;
-								},
-					27915051126 =>  {
-								Event.Key = kbd.F11;
-								return Event;
-								},
-					27915052126 =>  {
-								Event.Key = kbd.F12;
-								return Event;
-								},
-					279149595080 =>  {
-								Event.Key = kbd.F13;
-								return Event;
-								},
-					279149595081 =>  {
-								Event.Key = kbd.F14;
-								return Event;
-								},
-					279149595082 =>  {
-								Event.Key = kbd.F15;
-								return Event;
-								},
-					279149595083 =>  {
-								Event.Key = kbd.F16;
-								return Event;
-								},
-					279149535950126=>  {
-								Event.Key = kbd.F17;
-								return Event;
-								},
-					279149555950126 =>  {
-								Event.Key = kbd.F18;
-								return Event;
-								},
-					279149565950126 =>  {
-								Event.Key = kbd.F19;
-								return Event;
-								},
-					279149575950126 =>  {
-								Event.Key = kbd.F20;
-								return Event;
-								},
-					279150485950126 =>  {
-								Event.Key = kbd.F21;
-								return Event;
-								},
-					279150495950126 =>  {
-								Event.Key = kbd.F22;
-								return Event;
-								},
-					279150515950126 =>  {
-								Event.Key = kbd.F23;
-								return Event;
-								},
-					279150525950126 =>  {
-								Event.Key = kbd.F24;
-								return Event;
-								},
-					279149595480 =>  {
-						// ctrl-shitf f1
-								Event.Key = kbd.F25;
-								return Event;
-								},
-					279149595481 =>  {
-								Event.Key = kbd.F26;
-								return Event;
-								},
-					279149595482 =>  {
-								Event.Key = kbd.F27;
-								return Event;
-								},
-					279149595483 =>  {
-								Event.Key = kbd.F28;
-								return Event;
-								},
-					279149535954126 =>  {
-								Event.Key = kbd.F29;
-								return Event;
-								},
-					279149545954126 =>  {
-								Event.Key = kbd.F30;
-								return Event;
-								},
-					279149565954126 =>  {
-								Event.Key = kbd.F31;
-								return Event;
-								},
-					279149575954126 =>  {
-								Event.Key = kbd.F32;
-								return Event;
-								},
-					279150485954126 =>  {
-								Event.Key = kbd.F33;
-								return Event;
-								},
-					279150495954126 =>  {
-								Event.Key = kbd.F34;
-								return Event;
-								},
-					279150515954126 =>  {
-								Event.Key = kbd.F35;
-								return Event;
-								},
-					279150525954126 =>  {
-								Event.Key = kbd.F36;
-								return Event;
-								},
-							
-					else => {
+							},
+							else => {
 								Event.Key = kbd.none;
 								return Event;
-						},
+							},
+						}
+					},
+
+					// csi
+					'[' => {
+						return parse_csiFunc(keybuf[2..c]);
+					},
+
+					// alt key
+					else => {
+						switch (c1) {
+							'a' => {
+								Event.Key = kbd.altA;
+								return Event;
+							},
+							'b' => {
+								Event.Key = kbd.altB;
+								return Event;
+							},
+							'c' => {
+								Event.Key = kbd.altC;
+								return Event;
+							},
+							'd' => {
+								Event.Key = kbd.altD;
+								return Event;
+							},
+							'e' => {
+								Event.Key = kbd.altE;
+								return Event;
+							},
+							'f' => {
+								Event.Key = kbd.altF;
+								return Event;
+							},
+							'g' => {
+								Event.Key = kbd.altG;
+								return Event;
+							},
+							'h' => {
+								Event.Key = kbd.altH;
+								return Event;
+							},
+							'i' => {
+								Event.Key = kbd.altI;
+								return Event;
+							},
+							'j' => {
+								Event.Key = kbd.altJ;
+								return Event;
+							},
+							'k' => {
+								Event.Key = kbd.altK;
+								return Event;
+							},
+							'l' => {
+								Event.Key = kbd.altL;
+								return Event;
+							},
+							'm' => {
+								Event.Key = kbd.altM;
+								return Event;
+							},
+							'n' => {
+								Event.Key = kbd.altN;
+								return Event;
+							},
+							'o' => {
+								Event.Key = kbd.altO;
+								return Event;
+							},
+							'p' => {
+								Event.Key = kbd.altP;
+								return Event;
+							},
+							'q' => {
+								Event.Key = kbd.altQ;
+								return Event;
+							},
+							'r' => {
+								Event.Key = kbd.altR;
+								return Event;
+							},
+							's' => {
+								Event.Key = kbd.altS;
+								return Event;
+							},
+							't' => {
+								Event.Key = kbd.altT;
+								return Event;
+							},
+							'u' => {
+								Event.Key = kbd.altU;
+								return Event;
+							},
+							'v' => {
+								Event.Key = kbd.altV;
+								return Event;
+							},
+							'w' => {
+								Event.Key = kbd.altW;
+								return Event;
+							},
+							'x' => {
+								Event.Key = kbd.altX;
+								return Event;
+							},
+							'y' => {
+								Event.Key = kbd.altY;
+								return Event;
+							},
+							'z' => {
+								Event.Key = kbd.altZ;
+								return Event;
+							},
+							else => {
+								Event.Key = kbd.none;
+								return Event;
+							},
+						}
+					},
+				} else {
+					Event.Key = kbd.esc;
+					return Event;
 				}
 			},
 
@@ -1225,13 +1059,13 @@ pub const kbd = enum {
 
 			else => {
 				// return Character UTF8
-				var vUTF8: []u8 = undefined;
-				vUTF8 = allocatorTerm.alloc(u8, 4) catch unreachable;
-				const i = utf.utf8Encode(c0, vUTF8) catch {
+				var vUnicode: []u8 = undefined;
+				vUnicode = allocatorTerm.alloc(u8, 4) catch unreachable;
+				const i = utf.utf8Encode(c0, vUnicode) catch {
 					Event.Key = kbd.none;
 					return Event;
 				};
-				Event.Char = vUTF8[0..i];
+				Event.Char = vUnicode[0..i];
 
 				Event.Key = kbd.char;
 				return Event;
@@ -1243,9 +1077,369 @@ pub const kbd = enum {
 	}
 
 	fn parse_csiFunc(csibuf: []const u8) Keyboard {
+		// init
 		var Event: Keyboard = Keyboard{ .Key = kbd.none, .Char = "" };
+
+		// std.debug.print("{u}\r\n",.{csibuf[0]});
+	
 		switch (csibuf[0]) {
 			// keys
+			'A' => {
+				Event.Key = kbd.up;
+				return Event;
+			},
+			'B' => {
+				Event.Key = kbd.down;
+				return Event;
+			},
+			'C' => {
+				Event.Key = kbd.right;
+				return Event;
+			},
+			'D' => {
+				Event.Key = kbd.left;
+				return Event;
+			},
+			'H' => {
+				Event.Key = kbd.home;
+				return Event;
+			},
+			'F' => {
+				Event.Key = kbd.end;
+				return Event;
+			},
+			'3' => {
+				Event.Key = kbd.delete;
+				return Event;
+			},
+			'Z' => {
+				Event.Key = kbd.stab;
+				return Event;
+			},
+
+			'1'...'2' => {
+				if (csibuf[1] == 126) {
+					switch (csibuf[0]) { // insert
+						'2' => {
+							Event.Key = kbd.ins;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+
+				if (csibuf[2] == 126) {
+					switch (csibuf[1]) { // f5..f12
+						'5' => {
+							Event.Key = kbd.F5;
+							return Event;
+						},
+						'7' => {
+							Event.Key = kbd.F6;
+							return Event;
+						},
+						'8' => {
+							Event.Key = kbd.F7;
+							return Event;
+						},
+						'9' => {
+							Event.Key = kbd.F8;
+							return Event;
+						},
+						'0' => {
+							Event.Key = kbd.F9;
+							return Event;
+						},
+						'1' => {
+							Event.Key = kbd.F10;
+							return Event;
+						},
+						'3' => {
+							Event.Key = kbd.F11;
+							return Event;
+						},
+						'4' => {
+							Event.Key = kbd.F12;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+
+				if (csibuf[2] == 50) { // f13..f16 
+					switch (csibuf[3]) {
+						'P' => {
+							Event.Key = kbd.F13;
+							return Event;
+						},
+						'Q' => {
+							Event.Key = kbd.F14;
+							return Event;
+						},
+						'R' => {
+							Event.Key = kbd.F15;
+							return Event;
+						},
+						'S' => {
+							Event.Key = kbd.F16;
+							return Event;
+						},
+						'A' => {
+							Event.Key = kbd.up;
+							return Event;
+						},
+						'B' => {
+							Event.Key = kbd.down;
+							return Event;
+						},
+						'C' => {
+							Event.Key = kbd.right;
+							return Event;
+						},
+						'D' => {
+							Event.Key = kbd.left;
+							return Event;
+						},
+						'H' => {
+							Event.Key = kbd.home;
+							return Event;
+						},
+						'F' => {
+							Event.Key = kbd.end;
+							return Event;
+						},
+						'3' => {
+							Event.Key = kbd.delete;
+							return Event;
+						},
+						'5' => {
+							Event.Key = kbd.pageUp;
+							return Event;
+						},
+						'6' => {
+							Event.Key = kbd.pageDown;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+
+				if (csibuf[2] == 53) { // no verr.numeric
+					switch (csibuf[3]) {
+						'A' => {
+							Event.Key = kbd.up;
+							return Event;
+						},
+						'B' => {
+							Event.Key = kbd.down;
+							return Event;
+						},
+						'C' => {
+							Event.Key = kbd.right;
+							return Event;
+						},
+						'D' => {
+							Event.Key = kbd.left;
+							return Event;
+						},
+						'H' => {
+							Event.Key = kbd.home;
+							return Event;
+						},
+						'5' => {
+							Event.Key = kbd.pageUp;
+							return Event;
+						},
+						'6' => {
+							Event.Key = kbd.pageDown;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+
+				if (csibuf[2] == 54) { // shift / controle
+					switch (csibuf[3]) {
+						'A' => {
+							Event.Key = kbd.up;
+							return Event;
+						},
+						'B' => {
+							Event.Key = kbd.down;
+							return Event;
+						},
+						'C' => {
+							Event.Key = kbd.right;
+							return Event;
+						},
+						'D' => {
+							Event.Key = kbd.left;
+							return Event;
+						},
+						'H' => {
+							Event.Key = kbd.home;
+							return Event;
+						},
+						'5' => {
+							Event.Key = kbd.pageUp;
+							return Event;
+						},
+						'6' => {
+							Event.Key = kbd.pageDown;
+							return Event;
+						},
+						'P' => {
+							Event.Key = kbd.F25;
+							return Event;
+						},
+						'Q' => {
+							Event.Key = kbd.F26;
+							return Event;
+						},
+						'R' => {
+							Event.Key = kbd.F27;
+							return Event;
+						},
+						'S' => {
+							Event.Key = kbd.F28;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+
+				if (csibuf[3] == 50 and csibuf[4] == 126) { // f15..f24
+					switch (csibuf[1]) {
+						'5' => {
+							Event.Key = kbd.F17;
+							return Event;
+						},
+						'7' => {
+							Event.Key = kbd.F18;
+							return Event;
+						},
+						'8' => {
+							Event.Key = kbd.F19;
+							return Event;
+						},
+						'9' => {
+							Event.Key = kbd.F20;
+							return Event;
+						},
+						'0' => {
+							Event.Key = kbd.F21;
+							return Event;
+						},
+						'1' => {
+							Event.Key = kbd.F22;
+							return Event;
+						},
+						'3' => {
+							Event.Key = kbd.F23;
+							return Event;
+						},
+						'4' => {
+							Event.Key = kbd.F24;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+				 if (csibuf[3] == 54 and csibuf[4] == 126) { // f29..f36
+					switch (csibuf[1]) {
+						'5' => {
+							Event.Key = kbd.F29;
+							return Event;
+						},
+						'7' => {
+							Event.Key = kbd.F30;
+							return Event;
+						},
+						'8' => {
+							Event.Key = kbd.F31;
+							return Event;
+						},
+						'9' => {
+							Event.Key = kbd.F32;
+							return Event;
+						},
+						'0' => {
+							Event.Key = kbd.F33;
+							return Event;
+						},
+						'1' => {
+							Event.Key = kbd.F34;
+							return Event;
+						},
+						'3' => {
+							Event.Key = kbd.F35;
+							return Event;
+						},
+						'4' => {
+							Event.Key = kbd.F36;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+			},
+
+			'5'...'6' => {
+				if (csibuf[1] == 126) {
+					switch (csibuf[0]) {
+						'5' => {
+							Event.Key = kbd.pageUp;
+							return Event;
+						},
+						'6' => {
+							Event.Key = kbd.pageDown;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+
+				if (csibuf[3] == 126) {
+					switch (csibuf[2]) {
+						'5' => {
+							Event.Key = kbd.pageUp;
+							return Event;
+						},
+						'6' => {
+							Event.Key = kbd.pageDown;
+							return Event;
+						},
+						else => {
+							Event.Key = kbd.none;
+							return Event;
+						},
+					}
+				}
+			},
 
 			'<' => { // mouse
 				MouseInfo.action = MouseAction.maNone;

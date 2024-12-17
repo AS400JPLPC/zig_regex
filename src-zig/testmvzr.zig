@@ -41,7 +41,10 @@ pub fn isMatch(testval : [] const u8, pattern : [] const u8 ) bool {
  
 pub fn isMatchiFixedIso(testval : [] const u8) void { 
     
-  const ops, const sets = freg.resourcesNeeded("([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)");  
+  const ops, const sets = freg.resourcesNeeded(\\"([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|
+      \\(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|
+      \\([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)"
+      );  
     
     const SlimmedDownRegex = freg.SizedRegex(ops, sets);
     const maybe_regex = SlimmedDownRegex.compile("([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)[-]?02[-]?29)") ;
@@ -93,7 +96,7 @@ std.debug.print("test emprient memoire",.{});
 
 
     // std.debug.print("Macth A-Z {} \r\n",.{reg.isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
-    // std.debug.print("MVZR  A-Z {} \r\n",.{isMatch("P1","^[A-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
+    std.debug.print("MVZR  A-Z {} \r\n",.{isMatch("P1-m","^[A-Z]{1,1}[a-zA-Z0-9\\-]{0,}$")}) ;
 
     // std.debug.print("Macth pppp-1 {} \r\n",.{reg.isMatch("pppp-1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
     // std.debug.print("MVZR pppp-1 {} \r\n",.{isMatch("pppp-1","^[a-zA-Z]{1}[a-zA-Z0-9]$")}) ;

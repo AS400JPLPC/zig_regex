@@ -41,10 +41,10 @@ pub const mnu = struct {
 
 	pub const MNUVH = enum { vertical, horizontal };
 	// nbr espace intercaler
-	const mnuspc: usize = 1 ;
+	pub var mnuspc: usize = 1;
 
 	// define attribut default CADRE
-	pub const AtrMnu: term.ZONATRB = .{
+	pub var AtrMnu: term.ZONATRB = .{
 		.styled = [_]u32{
 			@intFromEnum(term.Style.styleDim),
 			@intFromEnum(term.Style.notStyle),
@@ -55,7 +55,7 @@ pub const mnu = struct {
 		.foregr = term.ForegroundColor.fgRed
 	};
 
-	pub const AtrBar: term.ZONATRB = .{
+	pub var AtrBar: term.ZONATRB = .{
 		.styled = [_]u32{
 			@intFromEnum(term.Style.styleReverse),
 			@intFromEnum(term.Style.styleItalic),
@@ -66,7 +66,7 @@ pub const mnu = struct {
 		.foregr = term.ForegroundColor.fgWhite
 	 };
 
-	pub const AtrCell: term.ZONATRB = .{
+	pub var AtrCell: term.ZONATRB = .{
 		.styled = [_]u32{
 			@intFromEnum(term.Style.styleItalic),
 			@intFromEnum(term.Style.notStyle),
@@ -118,7 +118,6 @@ pub const mnu = struct {
 		 attrCell: term.ZONATRB,
 		 xitems: []const []const u8,
 		 nbr: usize,
-		 spc: usize,
 		 actif: bool
 	};
 
@@ -139,7 +138,6 @@ pub const mnu = struct {
 			.attrCell = AtrCell,
 			.xitems = vitems,
 			.nbr = 0,
-			.spc = mnuspc,
 			.actif = false
 			};
 			if (xmenu.mnuvh == MNUVH.vertical) {
@@ -156,7 +154,7 @@ pub const mnu = struct {
 			if (xmenu.mnuvh == MNUVH.horizontal) {
 				for (xmenu.xitems) |txt| {
 					if (txt.len > 0) {
-						xmenu.cols += (txt.len + xmenu.spc);
+						xmenu.cols += utl.nbrCharStr(txt) + mnuspc;
 						xmenu.nbr += 1;
 						xmenu.actif = true;
 					}
@@ -166,43 +164,6 @@ pub const mnu = struct {
 			}
 		return xmenu;
 	}
-
-	// NEW MENU
-	pub fn newMenuH(vname: []const u8, vposx: usize, vposy: usize, vcadre: CADRE,
-									 vspc: usize, vitems: []const []const u8) MENU {
-		
-		var xmenu = MENU{
-			.name = vname,
-			.posx = vposx,
-			.posy = vposy,
-			.lines = 0,
-			.cols  = 0,
-			.cadre = vcadre,
-			.mnuvh = MNUVH.horizontal,
-			.attribut = AtrMnu,
-			.attrBar  = AtrBar,
-			.attrCell = AtrCell,
-			.xitems = vitems,
-			.nbr = 0,
-			.spc = vspc,
-			.actif = false
-			};
-		
-			if (xmenu.mnuvh == MNUVH.horizontal) {
-				for (xmenu.xitems) |txt| {
-					if (txt.len > 0) {
-						xmenu.cols += (txt.len + xmenu.spc);
-						xmenu.nbr += 1;
-						xmenu.actif = true;
-					}
-				}
-				xmenu.lines = 3 ;
-				xmenu.cols += 1;
-			}
-		return xmenu;
-	}
-
-
 
 	// return index-menu ---> arraylist panel-menu
 	pub fn getIndex(vmnu: *mnu.MENU, name: []const u8) ErrMenu!usize {
@@ -385,7 +346,7 @@ pub const mnu = struct {
 
 				n += 1;
 				h += utl.nbrCharStr(cell);
-				if (vmnu.mnuvh == MNUVH.horizontal) h += vmnu.spc;
+				if (vmnu.mnuvh == MNUVH.horizontal) h += mnuspc;
 			}
 		}
 	}
@@ -435,7 +396,7 @@ pub const mnu = struct {
 
 				n += 1;
 				h += utl.nbrCharStr(cell);
-				if (vmnu.mnuvh == MNUVH.horizontal) h += vmnu.spc;
+				if (vmnu.mnuvh == MNUVH.horizontal) h += mnuspc;
 			}
 
 			var Tkey = kbd.getKEY();

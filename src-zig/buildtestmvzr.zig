@@ -15,13 +15,11 @@ pub fn build(b: *std.Build) void {
 
 
     // Definition of dependencies
-
     const match = b.createModule(.{
-      .root_source_file= b.path("./deps/curse/match.zig"),
+      .root_source_file= b.path("./deps/match.zig"),
     });
 	match.addIncludePath( b.path("./lib/"));
 
-	
     // Building the executable
     const Prog = b.addExecutable(.{
     .name = "testmvzr",
