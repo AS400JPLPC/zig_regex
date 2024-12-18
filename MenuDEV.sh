@@ -68,12 +68,10 @@ do
 	f_dsplyPos  1  24 $faGras$fcJaune 'Project: '$faGras$fcCyan$PROJECT
 	f_dsplyPos  5  20 $faGras$fcRouge' 2.'; f_dsplyPos  5  24 $faGras$fcGreen 'APPTERM'
 	f_dsplyPos  6  24 $faGras$fcJaune '------------compile Zig-----------------'
-	f_dsplyPos  7  20 $faGras$fcRouge' 9.'; f_dsplyPos  7  24 $faGras$fcGreen 'cfluent'
+
 	f_dsplyPos  8  20 $faGras$fcRouge'10.'; f_dsplyPos  8  24 $faGras$fcGreen 'testfluent'
 	f_dsplyPos  9  20 $faGras$fcRouge'11.'; f_dsplyPos  9  24 $faGras$fcGreen 'testreg'
-    f_dsplyPos 10  20 $faGras$fcRouge'12.'; f_dsplyPos 10  24 $faGras$fcGreen 'exCallpgm'
-    f_dsplyPos 11  20 $faGras$fcRouge'13.'; f_dsplyPos 11  24 $faGras$fcGreen 'Exemple'
-    f_dsplyPos 12  20 $faGras$fcRouge'14.'; f_dsplyPos 12  24 $faGras$fcGreen 'Zregex'
+     f_dsplyPos 12  20 $faGras$fcRouge'14.'; f_dsplyPos 12  24 $faGras$fcGreen 'Zregex'
     f_dsplyPos 13  20 $faGras$fcRouge'15.'; f_dsplyPos 13  24 $faGras$fcGreen 'testmvzr'
 
 	f_dsplyPos 14  24 $faGras$fcJaune '----------------------------------------'
@@ -112,11 +110,6 @@ do
 		;;
 
 
-		9)
-			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "cfluent"
-		;;
-
-
 		10)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testfluent"
 		;;
@@ -125,17 +118,6 @@ do
 		11)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testreg"
 		;;
-
-
-		12)
-			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "exCallpgm"
-		;;
-
-
-		13)
-			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Exemple"
-		;;
-
 
 		14)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Zregex"

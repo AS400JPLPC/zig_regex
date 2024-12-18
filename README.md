@@ -35,12 +35,6 @@ buf = [_]u8{0} ** 3;
 
   std.debug.print("Macth abc {} \r\n",.{reg.isMatch("p1","^[a-zA-Z]{1,1}[a-zA-Z0-9]{0,}$")}) ;
 
-
-
-  std.debug.print("MVZR pè1éàaÇ test  {} \r\n",.{
-        isMatch("pè1CéàaÇ","^[a-zA-Z]{1}(\\é|\\à|\\è|\\Ç|[a-zA-Z0-9]){1,7}$")}) ;
-
-
   std.debug.print("Macth digit {} \r\n",.{reg.isMatch(
   "423",
   "^[1-9]{1,1}?[0-9]{0,}$")}) ;
@@ -150,8 +144,3 @@ buf = [_]u8{0} ** 3;
 *   •upgrade 2024-07-22.<BR /> 
 &nbsp;&nbsp;&nbsp;&larr;&nbsp;Test MVZR and PCRE "C"   Zregex<BR /> 
 
-*   •upgrade 2024-08-12.<BR /> 
-&nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.13.0/ 0.14 <BR />
-
-*   •upgrade 2024-09-01.<BR /> 
-&nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.14 <BR />
