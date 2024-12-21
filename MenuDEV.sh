@@ -69,10 +69,7 @@ do
 	f_dsplyPos  5  20 $faGras$fcRouge' 2.'; f_dsplyPos  5  24 $faGras$fcGreen 'APPTERM'
 	f_dsplyPos  6  24 $faGras$fcJaune '------------compile Zig-----------------'
 
-	f_dsplyPos  8  20 $faGras$fcRouge'10.'; f_dsplyPos  8  24 $faGras$fcGreen 'testfluent'
-	f_dsplyPos  9  20 $faGras$fcRouge'11.'; f_dsplyPos  9  24 $faGras$fcGreen 'testreg'
-     f_dsplyPos 12  20 $faGras$fcRouge'14.'; f_dsplyPos 12  24 $faGras$fcGreen 'Zregex'
-    f_dsplyPos 13  20 $faGras$fcRouge'15.'; f_dsplyPos 13  24 $faGras$fcGreen 'testmvzr'
+    f_dsplyPos 10  20 $faGras$fcRouge'10.'; f_dsplyPos 10  24 $faGras$fcGreen 'testmvzr'
 
 	f_dsplyPos 14  24 $faGras$fcJaune '----------------------------------------'
 
@@ -110,21 +107,7 @@ do
 		;;
 
 
-		10)
-			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testfluent"
-		;;
-
-
-		11)
-			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testreg"
-		;;
-
-		14)
-			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Zregex"
-		;;
-
-
-		15)
+    	10)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "testmvzr"
 		;;
 
