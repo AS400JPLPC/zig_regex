@@ -80,7 +80,7 @@ do
 
 	f_dsplyPos 18  20 $faGras$fcRouge'50.'; f_dsplyPos 18 24 $faGras$fcCyan  'Edit my Library'
 
-	f_dsplyPos 20  20 $faGras$fcRouge'55.'; f_dsplyPos 20  24 $faGras$fcCyan  'Edit my project'
+	f_dsplyPos 20  20 $faGras$fcRouge'60.'; f_dsplyPos 20  24 $faGras$fcCyan  'Edit my project'
 
 	f_dsplyPos 22  20 $faGras$fcRouge'66.'; f_dsplyPos 22  24 $faGras$fcCyan  'Edit last source used'
 
@@ -129,7 +129,7 @@ do
 		;;
 
 #project
-		55)
+		60)
 			/home/soleil/.Terminal/myProject.sh  $PROJECT $LIBPROJECT"src-zig"
 			#sleep 2
 			#break
