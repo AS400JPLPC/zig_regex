@@ -144,3 +144,7 @@ buf = [_]u8{0} ** 3;
 *   •upgrade 2024-07-22.<BR /> 
 &nbsp;&nbsp;&nbsp;&larr;&nbsp;Test MVZR and PCRE "C"   Zregex<BR /> 
 
+
+*   •upgrade 2025-03-12.<BR /> 
+&nbsp;&nbsp;&nbsp;&larr;&nbsp;zig version    0.14.0<BR />
+
